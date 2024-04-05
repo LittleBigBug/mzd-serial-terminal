@@ -1,8 +1,7 @@
 <script>
 	import click from "$lib/actions/click";
+	import { closeModal, openModal } from "$lib/stores/modal";
 	import { portDiff, portPath } from "$lib/stores/serial";
-	import { openModal, closeModal } from "$lib/stores/modal";
-
 	import Await from "$lib/components/Await.svelte";
 	import Loading from "$lib/components/Loading.svelte";
 
@@ -93,13 +92,16 @@
 		display: block;
 		font-weight: bold;
 	}
+
 	.found-ports {
 		font-size: 18px;
 	}
+
 	.port-title {
 		padding-top: 12px;
 		padding-bottom: 12px;
 	}
+
 	.port {
 		display: flex;
 		justify-content: space-between;
@@ -112,10 +114,12 @@
 			.path {
 				border-top-left-radius: 12px;
 			}
+
 			.connect {
 				border-top-right-radius: 12px;
 			}
 		}
+
 		&.last {
 			border-bottom-left-radius: 12px;
 			border-bottom-right-radius: 12px;
@@ -123,6 +127,7 @@
 			.path {
 				border-bottom-left-radius: 12px;
 			}
+
 			.connect {
 				border-bottom-right-radius: 12px;
 			}
@@ -131,9 +136,11 @@
 		span {
 			padding: 15px;
 		}
+
 		.path {
 			background: #292929;
 		}
+
 		.connect {
 			background: #39733a;
 
@@ -143,11 +150,13 @@
 			}
 		}
 	}
+
 	.loading {
 		gap: 8px;
 		display: flex;
 		flex-direction: column;
 	}
+
 	.footer-note {
 		margin-top: 10px;
 		font-size: 10px;

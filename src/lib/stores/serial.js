@@ -1,8 +1,8 @@
-import { invoke } from "@tauri-apps/api/tauri";
-import { writable, derived } from "svelte/store";
+import ConnectionModal from "$lib/components/modal/ConnectionModal.svelte";
 import { openModal } from "$lib/stores/modal";
 import { debugLines, logLines } from "$lib/stores/terminal";
-import ConnectionModal from "$lib/components/modal/ConnectionModal.svelte";
+import { invoke } from "@tauri-apps/api/tauri";
+import { derived, writable } from "svelte/store";
 
 /**
  * @typedef {Object} PortInfo
@@ -21,33 +21,33 @@ import ConnectionModal from "$lib/components/modal/ConnectionModal.svelte";
 
 let pathStore = writable();
 export const portPath = {
-    ...pathStore,
-    /**
-     * @param {string?} [path]
-     * @returns {Promise<any>}
-     */
-    set(path) {
-        pathStore.set(path);
+	...pathStore,
+	/**
+	 * @param {string?} [path]
+	 * @returns {Promise<any>}
+	 */
+	set(path) {
+		pathStore.set(path);
 
-        if (path && path !== "") {
-            logLines.set("");
-            debugLines.set("");
+		if (path && path !== "") {
+			logLines.set("");
+			debugLines.set("");
 
-            return invoke("connect_serial", {path});
-        } else {
-            openModal("Connect to your Mazda", ConnectionModal);
-            return invoke("close_serial");
-        }
-    },
-    /**
-     * Detect current COM serial ports
-     * @returns {Promise<PortsDetected>}
-     */
-    detect() {
-        return invoke("suggest_serial_ports");
-    },
+			return invoke("connect_serial", { path });
+		} else {
+			openModal("Connect to your Mazda", ConnectionModal);
+			return invoke("close_serial");
+		}
+	},
+	/**
+	 * Detect current COM serial ports
+	 * @returns {Promise<PortsDetected>}
+	 */
+	detect() {
+		return invoke("suggest_serial_ports");
+	},
 };
 
-export const connected = derived([portPath], ([$path]) => !!$path);
+export const connected = derived([ portPath ], ([ $path ]) => !!$path);
 
 export const portDiff = writable();

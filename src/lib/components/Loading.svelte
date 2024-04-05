@@ -13,8 +13,12 @@
 
 <style lang="scss">
 	@keyframes dot-blink {
-		from { opacity: 1 }
-		to { opacity: 0.3 }
+		from {
+			opacity: 1
+		}
+		to {
+			opacity: 0.3
+		}
 	}
 
 	.loading {
